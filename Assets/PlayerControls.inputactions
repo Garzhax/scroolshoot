@@ -1,5 +1,54 @@
 {
     "name": "PlayerControls",
-    "maps": [],
+    "maps": [
+        {
+            "name": "Player",
+            "id": "24c2027e-b736-4c9f-ae2f-528ab8495fa4",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "8391fde3-dba3-4e72-b48d-f130b03d3595",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Fire",
+                    "type": "Button",
+                    "id": "33cff59b-be17-4e13-8c5d-9c3f03f1da02",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "363f549e-e12d-4d04-880e-0ad7feff38bc",
+                    "path": "WASD",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c34b61b8-b0fa-4a60-8e0c-dcb0709fde4d",
+                    "path": "Space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
     "controlSchemes": []
 }
