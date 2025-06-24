@@ -18,4 +18,13 @@ public class PlayerController : MonoBehaviour
         Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
         transform.Translate(move * moveSpeed * Time.deltaTime);
     }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("EnemyBullet"))
+        {
+            Destroy(gameObject); // Destruye al jugador
+                                 // Llamar al GameManager para terminar el juego
+            GameManager.Instance.GameOver();
+        }
+    }
 }
