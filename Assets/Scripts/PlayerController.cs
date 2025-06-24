@@ -1,12 +1,15 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameObject bulletPrefab;
+    public Transform firePoint;
+    public float bulletSpeed = 20f;
+
     private Vector2 moveInput;
     public float moveSpeed = 5f;
 
-    // Este m�todo se llama autom�ticamente con Send Messages
     public void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
@@ -14,17 +17,41 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // Movimiento en plano X-Z
         Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
         transform.Translate(move * moveSpeed * Time.deltaTime);
     }
-    void OnTriggerEnter(Collider other)
+
+    // ✅ Método de disparo
+    public void OnShoot()
     {
-        if (other.CompareTag("EnemyBullet"))
+        // Buscar todos los enemigos en la escena
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (enemies.Length == 0) return;
+
+        // Buscar el enemigo más cercano
+        GameObject closestEnemy = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (GameObject enemy in enemies)
         {
-            Destroy(gameObject); // Destruye al jugador
-                                 // Llamar al GameManager para terminar el juego
-            GameManager.Instance.GameOver();
+            float distance = Vector3.Distance(transform.position, enemy.transform.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestEnemy = enemy;
+            }
         }
+
+        if (closestEnemy == null) return;
+
+        // Calcular dirección hacia el enemigo más cercano
+        Vector3 direction = (closestEnemy.transform.position - firePoint.position).normalized;
+
+        // Instanciar bala y dispararla hacia el enemigo
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.LookRotation(direction));
+        Rigidbody rb = bullet.GetComponent<Rigidbody>();
+        rb.linearVelocity = direction * bulletSpeed;
     }
+
+    // También puede estar el OnTriggerEnter acá si lo usás
 }
