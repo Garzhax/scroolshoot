@@ -19,6 +19,7 @@ public class EnemyShooter : MonoBehaviour
         if (playerObj != null)
         {
             player = playerObj.transform;
+            Debug.Log("a");
         }
     }
 
@@ -42,5 +43,7 @@ public class EnemyShooter : MonoBehaviour
         // Dirección hacia el jugador
         Vector3 direction = (player.position - firePoint.position).normalized;
         rb.linearVelocity = direction * bulletSpeed;
+
     }
+
 }

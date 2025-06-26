@@ -54,4 +54,22 @@ public class PlayerController : MonoBehaviour
     }
 
     // También puede estar el OnTriggerEnter acá si lo usás
+    // Dentro de la clase PlayerController
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("EnemyBullet"))
+        {
+            Debug.Log("Jugador golpeado por bala enemiga");
+
+            GameManager gm = FindObjectOfType<GameManager>();
+            if (gm != null)
+            {
+                gm.GameOver();
+            }
+
+            Destroy(gameObject);
+        }
+    }
 }
+
+
